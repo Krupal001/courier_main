@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_projects/src/constants/strings.dart';
-import 'package:flutter_projects/src/features/authentication/screens/signup/signup_screen.dart';
+import 'package:flutter_projects/src/constants/strings.dart';
+import 'package:flutter_projects/src/features/authentication/screens/signup/signupform.dart';
 import 'package:flutter_projects/src/utils/theme/colors/colors.dart';
 
-import 'loginform.dart';
+import '../login/login_screen.dart';
+import 'signupform.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,33 +20,33 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-               const SizedBox(height: 50,),
-                const Text("SIGN IN",style: TextStyle(
+                const SizedBox(height: 50,),
+                const Text("SIGN UP",style: TextStyle(
                   fontFamily: "Open Sans",
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
                   color: tThemeMain,
                 ),textAlign: TextAlign.center,),
-                const Text("Hi! Welcome back,you've been missed",textAlign: TextAlign.center,),
+                const Text("Fill your information below or register With your social account.",textAlign: TextAlign.center,),
                 const SizedBox(height: 50,),
-                const LoginForm(),
-                 const SizedBox(height: 30),
+                const SignupForm(),
+                const SizedBox(height: 30),
                 const Text("OR",style: TextStyle(
                   fontSize: 25,)),
                 const SizedBox(height: 30),
                 SizedBox(
                   width: double.infinity,height: 50,
                   child: OutlinedButton.icon(
-                      icon: const Image(image: AssetImage("assets/images/google.png"),height: 80,),
-                      onPressed: (){},
-                      label: const Text("Sign-in with Google",style: TextStyle(fontSize: 16,color: Colors.black),),
+                    icon: const Image(image: AssetImage("assets/images/google.png"),height: 80,),
+                    onPressed: (){},
+                    label: const Text("Sign-in with Google",style: TextStyle(fontSize: 16,color: Colors.black),),
                     style: OutlinedButton.styleFrom(
                       elevation: 10,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),
       
-                ),
+                  ),
       
                 ),
                 const SizedBox(height: 20),
@@ -67,16 +68,16 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 TextButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const SignupScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
                     },
-                    child:  Text.rich(TextSpan(
-                      text: "Don't have an Account ? ",style:Theme.of(context).textTheme.bodyLarge,
-                      children: const [TextSpan(
-                        text: "Signup",style: TextStyle(color: tThemeMain),
-                      ),
-                      ]),
+                    child: Text.rich(TextSpan(
+                        text: "Already have an Account ? ",style: Theme.of(context).textTheme.bodyLarge,
+                        children: const [TextSpan(
+                          text: "Signin",style: TextStyle(color: tThemeMain),
+                        ),
+                        ]),
                       style: const TextStyle(color: tThemeMain,
-                      fontSize: 18),)),
+                          fontSize: 18),)),
               ],
             ),
           ),

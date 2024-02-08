@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/constants/image_strings.dart';
 import 'package:flutter_projects/src/constants/strings.dart';
+import 'package:flutter_projects/src/features/authentication/screens/login/login_screen.dart';
 import 'package:flutter_projects/src/utils/theme/colors/colors.dart';
+
+import '../signup/signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -39,27 +42,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(onPressed: (){},
+                  child: OutlinedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
+                  },
                       style: OutlinedButton.styleFrom(
                         shape: const RoundedRectangleBorder(),
                         foregroundColor:tThemeMain,
                         side: const BorderSide(color: tThemeMain),
-                        padding: const EdgeInsets.symmetric(vertical: 25)
+                        padding: const EdgeInsets.symmetric(vertical: 20)
                       ),
-                      child: const Text("LOGIN")),
+                      child: const Text("SIGN IN")),
                 ),
                 const SizedBox(width: 10,),
                 Expanded(
-                  child: ElevatedButton(onPressed: (){},
+                  child: ElevatedButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const SignupScreen()));
+                  },
                       style: ElevatedButton.styleFrom(
                         elevation: 10,
                           shape: const RoundedRectangleBorder(),
                           backgroundColor: tThemeMain,
                           foregroundColor:Colors.white,
                           side: const BorderSide(color: tThemeMain),
-                          padding: const EdgeInsets.symmetric(vertical: 25)
+                          padding: const EdgeInsets.symmetric(vertical: 20)
                       ),
-                      child: const Text("SIGNUP")),
+                      child: const Text("SIGN UP")),
                 )
               ],
             )
