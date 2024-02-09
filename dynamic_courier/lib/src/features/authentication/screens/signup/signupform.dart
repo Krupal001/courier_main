@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/src/features/authentication/controllers/signup_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../../utils/theme/colors/colors.dart';
@@ -10,11 +13,16 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(child: Container(
+    final controller=Get.put(SignupController());
+    final _formKey=GlobalKey<FormState>();
+    return Form(
+      key: _formKey,
+      child: Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextFormField(
+            controller: controller.name,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.person_2_outlined),
               labelText: tName,
@@ -34,6 +42,7 @@ class SignupForm extends StatelessWidget {
           ),
           const SizedBox(height: 20,),
           TextFormField(
+            controller: controller.phoneNo,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.phone_android_sharp),
               labelText: tPhone,
@@ -54,6 +63,7 @@ class SignupForm extends StatelessWidget {
 
           const SizedBox(height: 20,),
           TextFormField(
+            controller: controller.email,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.mail_outlined),
               labelText: tEmail,
@@ -73,6 +83,7 @@ class SignupForm extends StatelessWidget {
           ),
           const SizedBox(height: 20,),
           TextFormField(
+            controller: controller.password,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.fingerprint),
               labelText: tPass,
@@ -100,7 +111,11 @@ class SignupForm extends StatelessWidget {
           const SizedBox(height: 40),
           SizedBox(
             width: double.infinity, height: 50,
-            child: ElevatedButton(onPressed: () {},
+            child: ElevatedButton(onPressed: () {
+              if(_formKey.currentState!.validate()){
+                SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+              }
+            },
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                   shape: const RoundedRectangleBorder(
