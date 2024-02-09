@@ -19,7 +19,13 @@ class OnBoardingPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image(image: AssetImage(model.image),height: model.height*0.40,),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 2,color: Colors.white),
+              borderRadius: BorderRadius.circular(20),
+            ),
+              child: Image(image: AssetImage(model.image),height: model.height*0.40,)),
+
            Column(
             children: [
               Text(model.title,style: const TextStyle(

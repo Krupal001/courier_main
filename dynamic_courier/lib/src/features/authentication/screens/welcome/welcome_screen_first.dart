@@ -62,9 +62,6 @@ class _FirstScreenState extends State<FirstScreen> {
                   if(nextPage>1){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const WelcomeScreen()));
                   }
-                  if(nextPage==1){
-
-                  }
                   controller.animateToPage(page: nextPage);
                 },
                   style: ElevatedButton.styleFrom(
@@ -94,6 +91,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       onPressed: (){
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const WelcomeScreen()));
                       },
+
                       child: const Text("Skip",style: TextStyle(color: tThemeMain),),
 
               )),
