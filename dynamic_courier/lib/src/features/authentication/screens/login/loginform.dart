@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/src/features/authentication/controllers/login_controller.dart';
 import 'package:flutter_projects/src/features/authentication/screens/forgotpass/forgotpassscreen.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../../utils/theme/colors/colors.dart';
@@ -11,11 +14,16 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(child: Container(
+    final controller=Get.put(LoginController());
+    final _formKey=GlobalKey<FormState>();
+    return Form(
+      key: _formKey,
+      child: Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextFormField(
+            controller: controller.email,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.person_2_outlined),
               labelText: tEmail,

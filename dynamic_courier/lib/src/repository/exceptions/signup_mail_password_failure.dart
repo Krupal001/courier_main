@@ -15,4 +15,5 @@ class SignupWithEmailAndPasswordFailure{
         return const SignupWithEmailAndPasswordFailure();
     }
   }
+
 }
