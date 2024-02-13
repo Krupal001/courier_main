@@ -31,8 +31,7 @@ class BottomNavBarState extends State<BottomNavBar> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            // Example of pushing a new screen when "Home" is tapped
-                     });
+          });
         },
         items: const [
           BottomNavigationBarItem(

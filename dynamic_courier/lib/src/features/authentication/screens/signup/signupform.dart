@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/signup_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../../utils/theme/colors/colors.dart';
@@ -14,10 +13,9 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(SignupController());
-    final _formKey=GlobalKey<FormState>();
+    final formKey=GlobalKey<FormState>();
     return Form(
-      key: _formKey,
-      child: Container(
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -103,16 +101,11 @@ class SignupForm extends StatelessWidget {
             ),
 
           ),
-          // const SizedBox(height: 20,),
-          // Align(alignment: Alignment.centerRight,
-          //     child: TextButton(onPressed: () {},
-          //         child: const Text("Forgot Password ?",
-          //           style: TextStyle(color: tThemeMain, fontSize: 17),))),
           const SizedBox(height: 40),
           SizedBox(
             width: double.infinity, height: 50,
             child: ElevatedButton(onPressed: () {
-              if(_formKey.currentState!.validate()){
+              if(formKey.currentState!.validate()){
                 SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
               }
             },
@@ -134,7 +127,6 @@ class SignupForm extends StatelessWidget {
           ),
           //
         ],),
-    ),
     );
   }
 }

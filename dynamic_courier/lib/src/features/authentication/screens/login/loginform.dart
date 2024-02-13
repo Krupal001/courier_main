@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/login_controller.dart';
 import 'package:flutter_projects/src/features/authentication/screens/forgotpass/forgotpassscreen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../constants/strings.dart';
 import '../../../../utils/theme/colors/colors.dart';
 
@@ -15,10 +13,9 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(LoginController());
-    final _formKey=GlobalKey<FormState>();
+    final formKey=GlobalKey<FormState>();
     return Form(
-      key: _formKey,
-      child: Container(
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -43,6 +40,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 20,),
           TextFormField(
+            controller: controller.password,
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.fingerprint),
               labelText: tPass,
@@ -72,7 +70,11 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 40),
           SizedBox(
             width: double.infinity, height: 50,
-            child: ElevatedButton(onPressed: () {},
+            child: ElevatedButton(onPressed: () {
+              if(formKey.currentState!.validate()){
+                LoginController.instance.login(controller.email.text.trim(), controller.password.text.trim());
+              }
+            },
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
                   shape: const RoundedRectangleBorder(
@@ -91,7 +93,6 @@ class LoginForm extends StatelessWidget {
           ),
          //
          ],),
-      ),
     );
   }
 }
