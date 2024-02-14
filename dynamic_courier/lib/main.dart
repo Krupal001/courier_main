@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/firebase_options.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/Add_location.dart';
 import 'package:flutter_projects/src/features/authentication/screens/spalsh_screen/splash_screen.dart';
+import 'package:flutter_projects/src/features/authentication/screens/welcome/welcome_main.dart';
 import 'package:flutter_projects/src/repository/authentication_repository.dart';
 import 'package:flutter_projects/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme:CAppTheme.lighttheme,
       darkTheme:CAppTheme.darktheme,
     themeMode: ThemeMode.system,
-    home: const AddLocationPage(),
+    home: const WelcomeScreen(),
     );
   }
 

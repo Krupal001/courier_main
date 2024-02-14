@@ -13,16 +13,18 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
-  firebase_core: ^2.25.4
+  firebase_core: ^2.4.0
   firebase_auth: ^4.17.4
   get: ^4.6.6
   cloud_firestore: ^4.5.0
+  connectivity_plus: ^5.0.1
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
 
@@ -41,11 +43,5 @@ flutter:
       fonts:
         - asset: assets/fonts/Oregano-Regular.ttf
 
-#  fonts:
-#     - family: Schyler
-#       fonts:
-#         - asset: fonts/Schyler-Regular.ttf
-#         - asset: fonts/Schyler-Italic.ttf
-#           style: italic
 
 

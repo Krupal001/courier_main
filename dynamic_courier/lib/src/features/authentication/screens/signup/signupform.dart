@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/signup_controller.dart';
+import 'package:flutter_projects/src/features/authentication/models/users_models.dart';
+import 'package:flutter_projects/src/utils/Validations/validations.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/strings.dart';
@@ -21,6 +23,7 @@ class SignupForm extends StatelessWidget {
         children: [
           TextFormField(
             controller: controller.name,
+            validator: (value)=>Tvalidator.validationEmptyText('Name', value),
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.person_2_outlined),
               labelText: tName,
@@ -41,6 +44,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(height: 20,),
           TextFormField(
             controller: controller.phoneNo,
+            validator: (value)=>Tvalidator.validatePhoneNumber(value),
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.phone_android_sharp),
               labelText: tPhone,
@@ -62,6 +66,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(height: 20,),
           TextFormField(
             controller: controller.email,
+            validator: (value)=>Tvalidator.validateEmail(value),
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.mail_outlined),
               labelText: tEmail,
@@ -82,6 +87,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(height: 20,),
           TextFormField(
             controller: controller.password,
+            validator: (value)=>Tvalidator.validatePassword(value),
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.fingerprint),
               labelText: tPass,
@@ -107,6 +113,14 @@ class SignupForm extends StatelessWidget {
             child: ElevatedButton(onPressed: () {
               if(formKey.currentState!.validate()){
                 SignupController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+
+                final user=UserModel(
+                    name: controller.name.text.trim(),
+                    email: controller.email.text.trim(),
+                    phone: controller.phoneNo.text.trim(),
+                    password: controller.password.text.trim());
+
+                SignupController.instance.createUser(user);
               }
             },
                 style: ElevatedButton.styleFrom(
