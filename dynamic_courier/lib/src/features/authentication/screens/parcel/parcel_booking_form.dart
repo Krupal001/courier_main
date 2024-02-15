@@ -48,10 +48,17 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                       borderSide: BorderSide(color: Colors.red)),
                   focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.red)),
-                ),),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Sender name is required';
+                  }
+                  return null;
+                },
+              ),
                   const SizedBox(height: 20),
                   StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('pickup_addresses').snapshots(),
+                    stream: FirebaseFirestore.instance.collection('firm_location').snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const CircularProgressIndicator(color: tThemeMain,);

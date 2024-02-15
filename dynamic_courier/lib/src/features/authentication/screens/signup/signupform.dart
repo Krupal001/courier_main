@@ -85,27 +85,31 @@ class SignupForm extends StatelessWidget {
 
           ),
           const SizedBox(height: 20,),
-          TextFormField(
-            controller: controller.password,
-            validator: (value)=>Tvalidator.validatePassword(value),
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.fingerprint),
-              labelText: tPass,
-              hintText: tPass,
-              suffixIcon: IconButton(
-                  onPressed: null, icon: Icon(Icons.remove_red_eye_sharp)),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15),)),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: tThemeMain),),
-              errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red)),
-              focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red)),
-
-
+          Obx(
+           ()=> TextFormField(
+              controller: controller.password,
+              obscureText: controller.hidePassword.value,
+              validator: (value)=>Tvalidator.validatePassword(value),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.fingerprint),
+                labelText: tPass,
+                hintText: tPass,
+                suffixIcon: IconButton(
+                    onPressed: () => controller.hidePassword.value=!controller.hidePassword.value,
+                     icon:Icon(controller.hidePassword.value ? Icons.remove_red_eye_sharp:Icons.lock)),
+                border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15),)),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: tThemeMain),),
+                errorBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
+                focusedErrorBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
+            
+            
+              ),
+            
             ),
-
           ),
           const SizedBox(height: 40),
           SizedBox(

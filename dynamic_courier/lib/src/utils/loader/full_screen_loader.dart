@@ -12,16 +12,20 @@ class TFullScreenLaoder{
           canPop: false,
           child: Container(
             color: Colors.white,
-            width: double.infinity,
-            height: double.infinity,
+           // width: double.infinity,
+           // height: double.infinity,
             child: Column(
               children: [
-                const SizedBox(height: 250,),
+                //const SizedBox(height: 250,),
                 TAnimationLoaderWidget(text:text,animation:animation),
               ],
             ),
           )),
   );
+
+}
+static stopLoading(){
+    Navigator.of(Get.overlayContext!).pop();
 }
 }
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/constants/strings.dart';
+import 'package:flutter_projects/src/features/authentication/controllers/signup_controller.dart';
 import 'package:flutter_projects/src/features/authentication/screens/signup/signupform.dart';
+import 'package:flutter_projects/src/repository/authentication_repository.dart';
 import 'package:flutter_projects/src/utils/theme/colors/colors.dart';
+import 'package:get/get.dart';
 
 import '../login/login_screen.dart';
 import 'signupform.dart';
@@ -11,6 +14,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(SignupController());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -38,7 +42,9 @@ class SignupScreen extends StatelessWidget {
                   width: double.infinity,height: 50,
                   child: OutlinedButton.icon(
                     icon: const Image(image: AssetImage("assets/images/google.png"),height: 80,),
-                    onPressed: (){},
+                    onPressed: (){
+                      controller.googleSignIn();
+                    },
                     label: const Text("Sign-in with Google",style: TextStyle(fontSize: 16,color: Colors.black),),
                     style: OutlinedButton.styleFrom(
                       elevation: 10,

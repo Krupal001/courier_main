@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/src/common_widgets/bottombar.dart';
+
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -15,7 +15,6 @@ class _DashboardState extends State<Dashboard> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            BottomNavBar(),
             Text("Dashboard screen"),
 
           ],

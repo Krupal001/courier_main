@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/src/features/authentication/controllers/firm_location_controller.dart';
+import 'package:flutter_projects/src/features/authentication/models/firm_location_model.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
 
@@ -10,11 +14,11 @@ class AddLocationPage extends StatefulWidget {
 }
 
 class AddLocationPageState extends State<AddLocationPage> {
-  TextEditingController locationController = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(FirmLocationController());
     return Scaffold(
       body: Container(
         child: Column(
@@ -32,7 +36,7 @@ class AddLocationPageState extends State<AddLocationPage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextField(
-                controller: locationController,
+                controller: controller.location,
                 decoration: const InputDecoration(labelText: 'Please Enter your firm Location',border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15),)),
                   focusedBorder: OutlineInputBorder(
@@ -54,7 +58,8 @@ class AddLocationPageState extends State<AddLocationPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-
+                    final firmloc=FirmLocationModel(firmAddress:controller.location.text);
+                    FirmLocationController.instance.firmLocation(firmloc);
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 10,
