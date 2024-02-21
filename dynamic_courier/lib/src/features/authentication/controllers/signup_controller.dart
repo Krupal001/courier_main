@@ -31,6 +31,9 @@ class SignupController extends GetxController{
       isGoogleLoading.value = true;
       await AuthenticationRepository.instance.signInWithGoogle();
       isGoogleLoading.value = false;
+      final auth=AuthenticationRepository.instance;
+      auth.setInitialScreen(auth.firebaseUser.value);
+
     } catch (e) {
       isGoogleLoading.value = false;
       Helper.errorSnackBar(title: "Error", message: e.toString());

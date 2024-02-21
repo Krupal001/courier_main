@@ -18,11 +18,11 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser= Rx<User?> (_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    //ever(firebaseUser, setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    user==null?Get.offAll(()=>const WelcomeScreen()):Get.offAll(()=>const BottomNavBar());
+  setInitialScreen(User? user) {
+    //user==null?Get.offAll(()=>const WelcomeScreen()):Get.offAll(()=>const BottomNavBar());
   }
   Future<String?> createUserWithEmailAndPassword(String email,String password)async{
       try{
@@ -58,7 +58,7 @@ class AuthenticationRepository extends GetxController {
     // Trigger the authentication flow
    // try{
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final auth=AuthenticationRepository.instance;
+
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 

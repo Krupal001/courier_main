@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/qr_code_screen.dart';
+import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
 
@@ -12,9 +16,7 @@ class ParcelBookingForm extends StatefulWidget {
 
 class ParcelBookingFormState extends State<ParcelBookingForm> {
   final _formKey = GlobalKey<FormState>();
-  final _recipientNameController = TextEditingController();
-  final _recipientAddressController = TextEditingController();
-  final _itemDescriptionController = TextEditingController();
+  final controller=Get.put(ParcelBookingController());
   String _selectedPickupAddress = '';
 
   @override
@@ -38,7 +40,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                   //
               const SizedBox(height: 20),
               TextFormField(
-                controller: _itemDescriptionController,
+                controller: controller.sendername,
                 decoration: const InputDecoration(labelText: 'Sender name',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15),)),
@@ -57,16 +59,16 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                 },
               ),
                   const SizedBox(height: 20),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('firm_location').snapshots(),
+                 /* StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('Firm_Location').snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const CircularProgressIndicator(color: tThemeMain,);
                       }
         
-                      List<String> pickupAddresses = snapshot.data!.docs.map((doc) => doc['address'] as String).toList();
+                      List<String> pickupAddresses = snapshot.data!.docs.map((doc) => doc['address'] as String).toList();*/
         
-                      return DropdownButtonFormField<String>(
+                     /* return DropdownButtonFormField<String>(
                         value: _selectedPickupAddress,
                         onChanged: (value) {
                           setState(() {
@@ -89,19 +91,19 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                           focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.red)),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Pickup Address is required';
-                          }
-                          return null;
-                        },
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     return 'Pickup Address is required';
+                        //   }
+                        //   return null;
+                        //},
                       );
                     },
-                  ),
+                  ),*/
                   const SizedBox(height: 20,),
                   TextFormField(
         
-                    controller: _recipientNameController,
+                    controller: controller.recipientNameController,
                     decoration: const InputDecoration(labelText: 'Recipient Name',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15),)),
@@ -122,7 +124,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
-                    controller: _recipientAddressController,
+                    controller: controller.recipientAddressController,
                     decoration: const InputDecoration(labelText: 'Recipient Address',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15),)),
@@ -142,7 +144,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
-                    controller: _itemDescriptionController,
+                    controller: controller.itemDescriptionController,
                     decoration: const InputDecoration(labelText: 'Item Description',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15),)),
@@ -194,9 +196,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       // Perform your parcel booking logic here
-      String recipientName = _recipientNameController.text;
-      String recipientAddress = _recipientAddressController.text;
-      String itemDescription = _itemDescriptionController.text;
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QrCodeScreen()));
 
 
     }

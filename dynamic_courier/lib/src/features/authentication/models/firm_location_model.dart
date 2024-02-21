@@ -5,7 +5,7 @@ class FirmLocationModel{
 
   toJson(){
     return{
-      "firm location":firmAddress,
+      "address":firmAddress,
     };
   }
 }

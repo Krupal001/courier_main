@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/bottombar.dart';
 import 'package:flutter_projects/firebase_options.dart';
+import 'package:flutter_projects/qr_code_screen.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/Add_location.dart';
 import 'package:flutter_projects/src/features/authentication/screens/spalsh_screen/splash_screen.dart';
 import 'package:flutter_projects/src/features/authentication/screens/welcome/welcome_main.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme:CAppTheme.lighttheme,
       darkTheme:CAppTheme.darktheme,
     themeMode: ThemeMode.system,
-    home: const SplashScreen(),
+    home: BottomNavBar(),
     );
   }
 
