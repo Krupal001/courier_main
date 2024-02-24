@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme:CAppTheme.lighttheme,
       darkTheme:CAppTheme.darktheme,
     themeMode: ThemeMode.system,
-    home: BottomNavBar(),
+    home: const SplashScreen(),
     );
   }
 

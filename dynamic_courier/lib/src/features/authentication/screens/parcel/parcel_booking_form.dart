@@ -4,6 +4,7 @@ import 'package:flutter_projects/qr_code_screen.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
 
@@ -16,11 +17,10 @@ class ParcelBookingForm extends StatefulWidget {
 
 class ParcelBookingFormState extends State<ParcelBookingForm> {
   final _formKey = GlobalKey<FormState>();
-  final controller=Get.put(ParcelBookingController());
-  String _selectedPickupAddress = '';
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(ParcelBookingController());
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -141,6 +141,9 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                       }
                       return null;
                     },
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1, // <-- SEE HERE
+                    maxLines: 5,
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
@@ -165,8 +168,13 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                   const SizedBox(height: 36),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
+                    child: ElevatedButton (
+                      onPressed: () async {
+                        var prefs= await SharedPreferences.getInstance();
+                        prefs.setString("sendername",controller.sendername.text);
+                        prefs.setString("recivername",controller.recipientNameController.text);
+                        prefs.setString("address",controller.recipientAddressController.text);
+                        prefs.setString("description",controller.itemDescriptionController.text);
                         _submitForm();
                       },
                       style: ElevatedButton.styleFrom(
@@ -196,7 +204,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       // Perform your parcel booking logic here
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QrCodeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const QrCodeScreen()));
 
 
     }

@@ -1,3 +1,8 @@
+//import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+
 class UserModel{
   final String? id;
   final String name;
@@ -23,4 +28,8 @@ class UserModel{
     };
 
     }
+  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String,dynamic>> document){
+      final data=document.data()!;
+      return UserModel(id:document.id,name: data["Name"], email: data["Email"], phone: data["Phone no"], password: data["Password"]);
+  }
 }

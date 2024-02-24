@@ -12,3 +12,5 @@ const String tName="Name";
 const String tPhone="Phone";
 const String tForgotPassTitle="Forgot Password";
 const String tForgotPAssSubtitle="Pls enter your registered mail id to change your password";
+const String tProfile="Profile";
+const String tEditProfile="Edit Profile";

@@ -1,9 +1,10 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import '../features/authentication/controllers/parcel_booking_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> printDoc(ParcelBookingController controller) async {
+
+Future<void> printDoc(SharedPreferences preferences) async {
   final doc = pw.Document();
   doc.addPage(
     pw.Page(
@@ -48,10 +49,10 @@ Future<void> printDoc(ParcelBookingController controller) async {
                         children: [
                           pw.SizedBox(
                               width:100,
-                              child: pw.Text('Name: ${controller.recipientNameController.text}',textAlign: pw.TextAlign.start,)),
+                              child: pw.Text('Name: ${preferences.getString("recivername")}',textAlign: pw.TextAlign.start,)),
                           pw.SizedBox(
                               width: 100,
-                              child: pw.Text(controller.recipientAddressController.text,textAlign: pw.TextAlign.start)),
+                              child: pw.Text(preferences.getString("address").toString(),textAlign: pw.TextAlign.start)),
                         ],
                       ),
                     ),
@@ -65,10 +66,10 @@ Future<void> printDoc(ParcelBookingController controller) async {
 
                       child: pw.BarcodeWidget(
                           data: [
-                            controller.sendername.text,
-                            controller.itemDescriptionController.text,
-                            controller.recipientAddressController.text,
-                            controller.recipientNameController.text,
+                            preferences.getString("sendername"),
+                            preferences.getString("recivername"),
+                            preferences.getString("address"),
+                            preferences.getString("description"),
                           ].join("\n"),
                           barcode: pw.Barcode.qrCode(),
                           backgroundColor: PdfColors.white,
@@ -80,7 +81,7 @@ Future<void> printDoc(ParcelBookingController controller) async {
                 ),
               ),
               pw.Text(
-                'Send By: ${controller.sendername.text}',
+                'Send By: ${preferences.getString("sendername")}',
                 style: pw.TextStyle(fontWeight: pw.FontWeight.normal),
               ),
               pw.Divider(thickness: 2.0, color: PdfColors.grey),
@@ -89,7 +90,7 @@ Future<void> printDoc(ParcelBookingController controller) async {
                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
               ),
               pw.Divider(thickness: 2.0, color: PdfColors.grey),
-              pw.Text(controller.itemDescriptionController.text),
+              pw.Text(preferences.getString("description").toString()),
             ],
           ),
         );

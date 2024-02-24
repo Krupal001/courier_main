@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/common_widgets/printable_doc.dart';
-//import 'package:flutter_projects/src/features/authentication/controllers/firm_location_controller.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
 import 'package:flutter_projects/src/utils/theme/colors/colors.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QrCodeScreen extends StatefulWidget {
   const QrCodeScreen({super.key});
@@ -14,20 +14,16 @@ class QrCodeScreen extends StatefulWidget {
 }
 
 class QrCodeScreenState extends State<QrCodeScreen> {
-  final ParcelBookingController controller = Get.put(ParcelBookingController());
-  late List<String> data;
+  final controller = Get.put(ParcelBookingController());
+   late List<String> data;
 
   @override
   void initState() {
     super.initState();
-
     // Assign values to the data list
-    data = [
-      controller.sendername.text,
-      controller.itemDescriptionController.text,
-      controller.recipientAddressController.text,
-      controller.recipientNameController.text,
-    ];
+    getValue();
+
+
   }
 
   @override
@@ -67,7 +63,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                         ),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
@@ -81,15 +77,15 @@ class QrCodeScreenState extends State<QrCodeScreen> {
 
                               child: Column(
                                   children: [
-                                SizedBox(
-                                    width:160,
-                                    child: Text('Name: ${controller.recipientNameController.text}',textAlign: TextAlign.start,)),
                                     SizedBox(
-                                      width: 160,
-                                        child: Text(controller.recipientAddressController.text,textAlign: TextAlign.start)),
+                                        width:160,
+                                        child: Text('Name: ${data[1]}',textAlign: TextAlign.start,)),
+                                    SizedBox(
+                                        width: 160,
+                                        child: Text(data[2],textAlign: TextAlign.start)),
                                   ]),
                             ),
-                           // Text(controller.recipientNameController.text),
+                            // Text(controller.recipientNameController.text),
 
                             Container(
                               decoration: BoxDecoration(
@@ -106,20 +102,20 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                                   version: QrVersions.auto,
                                   backgroundColor: Colors.white,
                                   size: 150,
-                              
+
                                 ),
                               ),
                             ),
                           ]),
 
                     ),
-                     Text(
-                      'Send By: ${controller.sendername.text}',
+                    Text(
+                      'Send By: ${data[0]}',
                     ),
                     const Divider(thickness: 2.0,color: Colors.grey,),
                     const Text("Description"),
                     const Divider(thickness: 2.0,color: Colors.grey,),
-                    Text(controller.itemDescriptionController.text),
+                    Text(data[3]),
                   ],
                 ),
               ),
@@ -133,16 +129,12 @@ class QrCodeScreenState extends State<QrCodeScreen> {
             height: 24.0,
           ),
           RawMaterialButton(
-            onPressed: () {
-              printDoc(controller);
+            onPressed: () async{
+              var prefrences= await SharedPreferences.getInstance();
+              await printDoc(prefrences);
               setState(() {
-                // Update the data list with the latest values
-                data = [
-                  controller.sendername.text,
-                  controller.itemDescriptionController.text,
-                  controller.recipientAddressController.text,
-                  controller.recipientNameController.text,
-                ];
+                getValue();
+
               });
             },
             fillColor: tThemeMain,
@@ -160,9 +152,23 @@ class QrCodeScreenState extends State<QrCodeScreen> {
         ],
       ),
     );
-  }
-}
 
+  }
+  void getValue() async{
+    var prefs= await SharedPreferences.getInstance();
+    String name=prefs.getString("sendername").toString();
+    String rname=prefs.getString("recivername").toString();
+    String address=prefs.getString("address").toString();
+    String desc=prefs.getString("description").toString();
+
+    setState(() {
+      data=[name,rname,address,desc];
+    });
+
+  }
+
+
+}
 
 
 

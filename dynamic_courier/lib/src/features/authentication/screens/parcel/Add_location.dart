@@ -35,19 +35,36 @@ class AddLocationPageState extends State<AddLocationPage> {
             // Text area for entering location
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: TextField(
-                controller: controller.location,
-                decoration: const InputDecoration(labelText: 'Please Enter your firm Location',border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15),)),
+              child: Column(
+                children: [
+                TextFormField(
+                controller: controller.firmName,
+                decoration: const InputDecoration(labelText: 'Firm Name',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15),)),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: tThemeMain),),
                   errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.red)),
                   focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.red)),
-                ), keyboardType: TextInputType.multiline,
-                minLines: 1, // <-- SEE HERE
-                maxLines: 5, ),
+                ),),
+                const SizedBox(height: 20,),
+                TextField(
+                    controller: controller.location,
+                    decoration: const InputDecoration(labelText: 'Please Enter your firm Location',border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15),)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: tThemeMain),),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                    ), keyboardType: TextInputType.multiline,
+                    minLines: 1, // <-- SEE HERE
+                    maxLines: 5, ),
+                  ],
+              ),
             ),
 
            // const SizedBox(height: 16),
@@ -58,7 +75,7 @@ class AddLocationPageState extends State<AddLocationPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    final firmloc=FirmLocationModel(firmAddress:controller.location.text);
+                    final firmloc=FirmLocationModel(firmAddress:controller.location.text,firmName: controller.firmName.text);
                     FirmLocationController.instance.firmLocation(firmloc);
                   },
                   style: ElevatedButton.styleFrom(

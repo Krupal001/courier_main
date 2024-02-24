@@ -18,11 +18,11 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser= Rx<User?> (_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    //ever(firebaseUser, setInitialScreen);
+    ever(firebaseUser, setInitialScreen);
   }
 
   setInitialScreen(User? user) {
-    //user==null?Get.offAll(()=>const WelcomeScreen()):Get.offAll(()=>const BottomNavBar());
+    user==null?Get.offAll(()=>const WelcomeScreen()):Get.offAll(()=>const BottomNavBar());
   }
   Future<String?> createUserWithEmailAndPassword(String email,String password)async{
       try{

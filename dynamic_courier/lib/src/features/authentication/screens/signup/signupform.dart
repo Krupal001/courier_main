@@ -3,6 +3,7 @@ import 'package:flutter_projects/src/features/authentication/controllers/signup_
 import 'package:flutter_projects/src/features/authentication/models/users_models.dart';
 import 'package:flutter_projects/src/utils/Validations/validations.dart';
 import 'package:get/get.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../../../constants/strings.dart';
 import '../../../../utils/theme/colors/colors.dart';
@@ -96,7 +97,7 @@ class SignupForm extends StatelessWidget {
                 hintText: tPass,
                 suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value=!controller.hidePassword.value,
-                     icon:Icon(controller.hidePassword.value ? Icons.remove_red_eye_sharp:Icons.lock)),
+                     icon:Icon(controller.hidePassword.value ? Icons.remove_red_eye_sharp:LineAwesomeIcons.eye_slash)),
                 border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15),)),
                 focusedBorder: const OutlineInputBorder(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/features/authentication/screens/dashboard/home_screen.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/Add_location.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/parcel_booking_form.dart';
+import 'package:flutter_projects/src/features/authentication/screens/profile/profile_screen.dart';
 import 'package:flutter_projects/src/repository/authentication_repository.dart';
 import 'package:flutter_projects/src/utils/theme/colors/colors.dart';
 
@@ -20,7 +21,7 @@ class BottomNavBarState extends State<BottomNavBar> {
     const Dashboard(),
     const AddLocationPage(),
     const ParcelBookingForm(),
-    ProfilePage(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -56,28 +57,6 @@ class BottomNavBarState extends State<BottomNavBar> {
             backgroundColor: tThemeMain,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Center(
-        child: ElevatedButton(onPressed: (){
-          AuthenticationRepository.instance.logout();
-        },
-            style: ElevatedButton.styleFrom(
-                elevation: 5,
-                shape: const RoundedRectangleBorder(),
-                backgroundColor: tThemeMain,
-                foregroundColor:Colors.white,
-                side: const BorderSide(color: tThemeMain),
-                padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 100)
-            ),
-            child: const Text("Logout")),
       ),
     );
   }
