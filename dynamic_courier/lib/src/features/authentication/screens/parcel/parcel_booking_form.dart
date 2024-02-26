@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
+import '../../controllers/firm_location_controller.dart';
 
 class ParcelBookingForm extends StatefulWidget {
   const ParcelBookingForm({super.key});
@@ -17,6 +18,7 @@ class ParcelBookingForm extends StatefulWidget {
 
 class ParcelBookingFormState extends State<ParcelBookingForm> {
   final _formKey = GlobalKey<FormState>();
+  String _selectedPickupAddress="";
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +61,20 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                 },
               ),
                   const SizedBox(height: 20),
-                 /* StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('Firm_Location').snapshots(),
+                 StreamBuilder<QuerySnapshot>(
+                     stream:FirebaseFirestore.instance
+                       .collection('Merchants').snapshots(),
+                    //     .doc(FirmLocationController.instance.getMerchantId(merchantQuery) as String?)  // Use the method to get the merchant ID
+                    //     .collection('Firm-Address')
+                    //     .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const CircularProgressIndicator(color: tThemeMain,);
                       }
         
-                      List<String> pickupAddresses = snapshot.data!.docs.map((doc) => doc['address'] as String).toList();*/
+                      List<String> pickupAddresses = snapshot.data!.docs.map((doc) => doc['address'] as String).toList();
         
-                     /* return DropdownButtonFormField<String>(
+                      return DropdownButtonFormField<String>(
                         value: _selectedPickupAddress,
                         onChanged: (value) {
                           setState(() {
@@ -99,7 +105,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                         //},
                       );
                     },
-                  ),*/
+                  ),
                   const SizedBox(height: 20,),
                   TextFormField(
         

@@ -17,19 +17,15 @@ class FirmLocationController extends GetxController{
   final firmName=TextEditingController();
 
 
-
   Future<void> firmLocation(FirmLocationModel firm,) async {
     // final email=authRepo.firebaseUser.value?.email;
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
       final String merchantEmail = user.email!;
-      QuerySnapshot merchantQuery = await FirebaseFirestore.instance
-          .collection("merchants")
-          .where("Email", isEqualTo: merchantEmail)
-          .get();
-      print("====****************************====" +
-          merchantQuery.docs.single.id);
+      QuerySnapshot merchantQuery = await FirebaseFirestore.instance.collection("Merchants")
+          .where("Email", isEqualTo: merchantEmail).get();
+
       if (merchantQuery.docs.isNotEmpty) {
         // Assuming there is only one merchant with the given email
         final String merchantId = merchantQuery.docs.first.id;
@@ -38,9 +34,9 @@ class FirmLocationController extends GetxController{
             "Firm-Address").add(firm.toJson()).whenComplete
           (() =>
             Get.snackbar("Success", "Your location has been added!",
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.green.withOpacity(0.1),
-                colorText: Colors.green),)
+                snackPosition: SnackPosition.TOP,
+                backgroundColor: Colors.green,
+                colorText: Colors.white),)
             .catchError((error, stackTrace) {
           Get.snackbar("Error", "Something went wrong. Try again!",
               snackPosition: SnackPosition.BOTTOM,
@@ -49,7 +45,26 @@ class FirmLocationController extends GetxController{
           print(error.toString());
         });
       }
+      Future<String?> getMerchantId() async {
+        User? user = FirebaseAuth.instance.currentUser;
+
+        if (user != null) {
+          final String merchantEmail = user.email!;
+          QuerySnapshot merchantQuery = await FirebaseFirestore.instance.collection("Merchants")
+              .where("Email", isEqualTo: merchantEmail).get();
+
+          if (merchantQuery.docs.isNotEmpty) {
+            final String merchantId = merchantQuery.docs.first.id;
+            return merchantId;
+          }
+        }
+
+        // Return null if no merchant ID is found
+        return null;
+      }
     }
+
   }
+
 
 }

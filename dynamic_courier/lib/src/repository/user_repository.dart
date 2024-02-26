@@ -11,9 +11,9 @@ class UserRepository extends GetxController{
   Future<void> createUser(UserModel user) async {
     await _db.collection("Merchants").add(user.toJson()).whenComplete
       (() => Get.snackbar("Success", "Your account has been created!",
-    snackPosition: SnackPosition.BOTTOM,
-        backgroundColor:Colors.green.withOpacity(0.1),
-      colorText: Colors.green),)
+    snackPosition: SnackPosition.TOP,
+        backgroundColor:Colors.green,
+      colorText: Colors.white),)
 
     .catchError((error,stackTrace){
       Get.snackbar("Error", "Something went wrong. Try again!",

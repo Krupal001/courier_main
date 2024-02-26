@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/src/features/authentication/screens/dashboard/home_screen.dart';
+import 'package:flutter_projects/src/features/authentication/screens/notification/notification_services.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/Add_location.dart';
 import 'package:flutter_projects/src/features/authentication/screens/parcel/parcel_booking_form.dart';
 import 'package:flutter_projects/src/features/authentication/screens/profile/profile_screen.dart';
@@ -16,13 +17,20 @@ class BottomNavBar extends StatefulWidget {
 
 class BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
-
+  NotificationServices notificationServices=NotificationServices();
   final List<Widget> _pages = [
     const Dashboard(),
     const AddLocationPage(),
     const ParcelBookingForm(),
     const ProfileScreen(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notificationServices.requestNotificationPermission();
+
+  }
 
   @override
   Widget build(BuildContext context) {
