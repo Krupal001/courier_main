@@ -148,7 +148,9 @@ class QrCodeScreenState extends State<QrCodeScreen> {
               style: TextStyle(color: Colors.white,fontSize:20),
 
             ),
-          )
+          ),
+          ElevatedButton(onPressed:(){
+          }, child: const Text('Request'))
         ],
       ),
     );

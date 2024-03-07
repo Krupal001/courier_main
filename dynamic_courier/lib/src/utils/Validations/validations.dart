@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class Tvalidator{
   //Empty Text validation
   static String? validationEmptyText(String? fieldName,String? value){
@@ -44,11 +46,25 @@ class Tvalidator{
       if(value==null || value.isEmpty){
         return 'Phone number is required.';
       }
-      final PhoneRegEx=RegExp(r'^\d{10}$');
-      if(!PhoneRegEx.hasMatch(value)){
+      final phoneRegEx=RegExp(r'^\d{10}$');
+      if(!phoneRegEx.hasMatch(value)){
         return 'Invalid Phone Number (10 digits Required.)';
       }
       return null;
+    }
+    static String? validateNumber(String? value){
+      if(value==null || value.isEmpty){
+        return 'No Of Parcels is required.';
+      }
+      if(value=='0'){
+        return 'for Delivery Minimum one Parcel is Required';
+      }
+      final numRegExp=RegExp(r'^[0-9]');
+      if(!numRegExp.hasMatch(value)){
+        return 'Please enter only number';
+      }
+      return null;
+
     }
 
 }

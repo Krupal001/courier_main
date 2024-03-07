@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/qr_code_screen.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
+import 'package:flutter_projects/src/features/authentication/models/parcels_model.dart';
+import 'package:flutter_projects/src/features/authentication/screens/notification/notification_services.dart';
+import 'package:flutter_projects/src/utils/Validations/validations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
-import '../../controllers/firm_location_controller.dart';
 
 class ParcelBookingForm extends StatefulWidget {
   const ParcelBookingForm({super.key});
@@ -61,7 +63,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                 },
               ),
                   const SizedBox(height: 20),
-                 StreamBuilder<QuerySnapshot>(
+                /* StreamBuilder<QuerySnapshot>(
                      stream:FirebaseFirestore.instance
                        .collection('Merchants').snapshots(),
                     //     .doc(FirmLocationController.instance.getMerchantId(merchantQuery) as String?)  // Use the method to get the merchant ID
@@ -105,8 +107,8 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                         //},
                       );
                     },
-                  ),
-                  const SizedBox(height: 20,),
+                  ),*/
+                 // const SizedBox(height: 20,),
                   TextFormField(
         
                     controller: controller.recipientNameController,
@@ -153,6 +155,23 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
+                    controller: controller.itemCountController,
+                    validator: (value) =>Tvalidator.validateNumber(value),
+                    decoration: const InputDecoration(labelText: 'no of parcels',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15),)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: tThemeMain),),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                    ),
+
+
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
                     controller: controller.itemDescriptionController,
                     decoration: const InputDecoration(labelText: 'Item Description',
                       border: OutlineInputBorder(
@@ -182,6 +201,17 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                         prefs.setString("address",controller.recipientAddressController.text);
                         prefs.setString("description",controller.itemDescriptionController.text);
                         _submitForm();
+                        final parcel=ParcelModel(
+                            senderName: controller.sendername.text,
+                            receiverName: controller.recipientNameController.text,
+                            parcelQTY: controller.itemCountController.text,
+                            senderAddress: "Delhi 582-3",
+                            senderPhone: "8558774589",
+                            receiverAddress: controller.recipientAddressController.text,
+                            receiverPhone: "5898554748",
+                            status:"Shipment Created",
+                            dataCreated: DateTime.now().toString());
+                        ParcelBookingController.instance.createParcel(parcel);
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 10,
