@@ -4,6 +4,7 @@ import 'package:flutter_projects/qr_code_screen.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
 import 'package:flutter_projects/src/features/authentication/models/parcels_model.dart';
 import 'package:flutter_projects/src/features/authentication/screens/notification/notification_services.dart';
+import 'package:flutter_projects/src/features/authentication/screens/notification/send_notifications.dart';
 import 'package:flutter_projects/src/utils/Validations/validations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -21,7 +22,7 @@ class ParcelBookingForm extends StatefulWidget {
 class ParcelBookingFormState extends State<ParcelBookingForm> {
   final _formKey = GlobalKey<FormState>();
   String _selectedPickupAddress="";
-
+  SendNotification notification=SendNotification();
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(ParcelBookingController());
@@ -201,6 +202,7 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                         prefs.setString("address",controller.recipientAddressController.text);
                         prefs.setString("description",controller.itemDescriptionController.text);
                         _submitForm();
+                        notification.sendNotifications();
                         final parcel=ParcelModel(
                             senderName: controller.sendername.text,
                             receiverName: controller.recipientNameController.text,
