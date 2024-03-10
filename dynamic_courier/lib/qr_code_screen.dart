@@ -149,8 +149,6 @@ class QrCodeScreenState extends State<QrCodeScreen> {
 
             ),
           ),
-          ElevatedButton(onPressed:(){
-          }, child: const Text('Request'))
         ],
       ),
     );

@@ -1,6 +1,7 @@
 class ParcelModel {
 
   final String? id;
+  final String merchantID;
   final String senderName;
   final String receiverName;
   final String parcelQTY;
@@ -14,6 +15,7 @@ class ParcelModel {
 
   ParcelModel({
     this.id,
+    required this.merchantID,
     required this.senderName,
     required this.receiverName,
     required this.parcelQTY,
@@ -28,6 +30,7 @@ class ParcelModel {
 
   toJson() {
     return {
+      "Merchant_ID":merchantID,
       "Sender Name": senderName,
       "Receiver Name": receiverName,
       "Items":parcelQTY,

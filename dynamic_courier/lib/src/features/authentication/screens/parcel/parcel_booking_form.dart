@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/qr_code_screen.dart';
 import 'package:flutter_projects/src/features/authentication/controllers/parcel_booking_controller.dart';
 import 'package:flutter_projects/src/features/authentication/models/parcels_model.dart';
-import 'package:flutter_projects/src/features/authentication/screens/notification/notification_services.dart';
 import 'package:flutter_projects/src/features/authentication/screens/notification/send_notifications.dart';
 import 'package:flutter_projects/src/utils/Validations/validations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/theme/colors/colors.dart';
@@ -21,8 +20,11 @@ class ParcelBookingForm extends StatefulWidget {
 
 class ParcelBookingFormState extends State<ParcelBookingForm> {
   final _formKey = GlobalKey<FormState>();
-  String _selectedPickupAddress="";
+  //String _selectedPickupAddress="";
+  String? merchantId;
   SendNotification notification=SendNotification();
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(ParcelBookingController());
@@ -196,14 +198,20 @@ class ParcelBookingFormState extends State<ParcelBookingForm> {
                     width: double.infinity,
                     child: ElevatedButton (
                       onPressed: () async {
-                        var prefs= await SharedPreferences.getInstance();
+                      QuerySnapshot merchantQuery = await FirebaseFirestore.instance.collection("Merchants")
+                          .where("Email", isEqualTo: user?.email!).get();
+
+                      final String merchant = merchantQuery.docs.first.id;
+                       var prefs= await SharedPreferences.getInstance();
                         prefs.setString("sendername",controller.sendername.text);
                         prefs.setString("recivername",controller.recipientNameController.text);
                         prefs.setString("address",controller.recipientAddressController.text);
                         prefs.setString("description",controller.itemDescriptionController.text);
                         _submitForm();
                         notification.sendNotifications();
+
                         final parcel=ParcelModel(
+                            merchantID: merchant.toString(),
                             senderName: controller.sendername.text,
                             receiverName: controller.recipientNameController.text,
                             parcelQTY: controller.itemCountController.text,
